@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,8 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         mRecycerView = (RecyclerView)findViewById(R.id.recyclerView);
 
+
         mRecycerView.setLayoutManager(layoutManager);
         mRecyclerViewAdapter = new RecyclerViewAdapter(MainActivity.this,itemList);
+        ItemTouchHelper.Callback callback = new MoveTouchHelper(mRecyclerViewAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(mRecycerView);
+
         mRecycerView.setAdapter(mRecyclerViewAdapter);
     }
 
